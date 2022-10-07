@@ -2,7 +2,7 @@ import React from 'react'
 import CardPokemon from './components/card/index'
 function App() {
   return (
-    <div><CardPokemon/></div>
+    <div style={{background: "#363b81"}}><CardPokemon/></div>
   )
 }
 
