@@ -1,2 +1,2 @@
-import CardPokemon from "./cardPokemon";
-export default CardPokemon
+import Card from "./card";
+export default Card;

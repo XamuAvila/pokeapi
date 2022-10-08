@@ -1,0 +1,21 @@
+.backgroundGeneral{
+    background: #dde9ef !important;
+}
+.cardPokemon{
+   border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+
+}
+
+.cardText{
+    font-size: 2.5em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.3em;
+    color: white;
+}
+
+.cardBackground{
+    width: 100%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}

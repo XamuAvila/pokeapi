@@ -136,7 +136,6 @@ class Pagination extends Component {
                       onClick={this.handleMoveLeft}
                     >
                       <span aria-hidden="true">&laquo;</span>
-                      <span className="sr-only">Previous</span>
                     </a>
                   </li>
                 );
@@ -151,7 +150,6 @@ class Pagination extends Component {
                       onClick={this.handleMoveRight}
                     >
                       <span aria-hidden="true">&raquo;</span>
-                      <span className="sr-only">Next</span>
                     </a>
                   </li>
                 );
