@@ -1,4 +1,5 @@
 .cardPokemon{
+    background: #263238 !important;
    border: 2px solid #feca1b ;
 }
 
@@ -10,7 +11,6 @@
 }
 
 .cardBackground{
-    background: #263238 !important;
     width: 100%;
     border-radius: ;
 }

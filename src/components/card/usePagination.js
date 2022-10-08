@@ -5,8 +5,10 @@ export const usePagination = ({
     currentPage
   }) => {
     const paginationRange = useMemo(() => {
-       // Our implementation logic will go here 
+      const paginationRange = useMemo(() => {
+        const totalPageCount = Math.ceil(totalCount / pageSize);
         
+        const totalPageNumbers = siblingCount + 5;
     }, [totalCount, pageSize, siblingCount, currentPage]);
   
     return paginationRange;

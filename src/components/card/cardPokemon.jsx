@@ -11,7 +11,7 @@ class CardPokemon extends Component {
         this.state = {
             pokemons: [],
             currentPage: 1,
-            pokemonsPerPage: 10,
+            pokemonsPerPage: 15,
             totalCount: 0,
         }
     }
@@ -41,7 +41,7 @@ class CardPokemon extends Component {
             <div className="row cardPokemon d-flex justify-content-center">
                 {currentPokemon.map(pokemon => {
                     return (
-                        <div className="card col-md-3 cardPokemon" style={{ width: "18rem", padding: "0 0 0 0", margin: "2px 2px 2px 2px" }}>
+                        <div className="card col-md-6 cardPokemon" style={{ width: "15rem", padding: "0 0 0 0", margin: "2px 2px 2px 2px" }}>
                             <Get url={pokemon.url}>
                                 {(error, response, isLoading, makeRequest, axios) => {
                                     if (error) {
@@ -68,6 +68,7 @@ class CardPokemon extends Component {
 
                 <div className="mt-4 mr-3 d-flex justify-content-center" >
                     <Pagination
+
                         pokemonsPerPage={pokemonsPerPage}
                         totalPokemon={pokemons.length}
                         currentPage={currentPage}
