@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
 } from "react-router-dom";
+import Details from './components/details/details.jsx';
 import GridPokemon from './components/grid/index.js';
 import './index.css';
 
@@ -15,6 +15,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <GridPokemon/>,
   },
+  {
+    path: "/pokemon/:pokemonId",
+    element: <Details/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
