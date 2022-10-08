@@ -1,47 +1,55 @@
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { Get } from "react-axios";
 import axios from 'axios';
 import './cardPokemon.css'
-import Pagination from "../pagination/pagination";
+import Pagination from "../pagination.js";
 class CardPokemon extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            pokemons: [],
-            currentPage: 1,
-            pokemonsPerPage: 15,
-            totalCount: 0,
+            allPokemons: [],
+            currentPokemons: [],
+            currentPage: null,
+            totalPages: null
         }
     }
+
 
     componentDidMount = async () => {
-        const allPokemons = await (await axios.get('https://pokeapi.co/api/v2/pokemon?limit=892')).data.results
+        const allPokemons = await (await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100000')).data.results
         if (allPokemons) {
-            this.setState({ pokemons: allPokemons });
-            this.setState({ totalCount: allPokemons.length })
+            this.setState({ allPokemons: allPokemons });
         }
     }
 
-    paginate = (pageNumber) => {
-        this.setState({ currentPage: pageNumber });
-    }
+    onPageChanged = data => {
+        const { allPokemons } = this.state;
+        const { currentPage, totalPages, pageLimit } = data;
+
+        const offset = (currentPage - 1) * pageLimit;
+        const currentPokemons = allPokemons.slice(offset, offset + pageLimit);
+
+        this.setState({ currentPage, currentPokemons, totalPages });
+    };
 
     render() {
-        const { pokemons, currentPage, pokemonsPerPage } = this.state;
-        var currentPokemon = []
-        if (pokemons.length !== 0) {
-            const indexOfLastPokemon = currentPage * pokemonsPerPage;
-            const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
-            currentPokemon = pokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
-        }
+        const {
+            allPokemons,
+            currentPokemons,
+            currentPage,
+            totalPages
+        } = this.state;
+        const totalPokemons = allPokemons.length;
+
+        if (totalPokemons === 0) return null;
 
         return (
             <div className="row cardPokemon d-flex justify-content-center">
-                {currentPokemon.map(pokemon => {
+                {currentPokemons.map(pokemon => {
                     return (
-                        <div className="card col-md-6 cardPokemon" style={{ width: "15rem", padding: "0 0 0 0", margin: "2px 2px 2px 2px" }}>
+                        <div id={pokemon.id} className="card col-md-3 cardPokemon" style={{ width: "18rem", padding: "0 0 0 0", margin: "2px 2px 2px 2px" }}>
                             <Get url={pokemon.url}>
                                 {(error, response, isLoading, makeRequest, axios) => {
                                     if (error) {
@@ -51,8 +59,8 @@ class CardPokemon extends Component {
                                         return (<div>Loading...</div>)
                                     }
                                     else if (response !== null) {
-                                        return (<div>
-                                            <img className="card-img-top" style={{ background: "#5db9ff" }} src={response.data.sprites.front_shiny} alt="Dog" />
+                                        return (<div id={response.data.id}>
+                                            <img className="card-img-top" style={{ background: "#5db9ff" }} src={response.data.sprites.front_shiny} alt="Pokemon" />
                                             <div className="card-body cardBackground">
                                                 <h5 className="card-title text-center cardText">{response.data.name}</h5>
                                             </div>
@@ -65,14 +73,12 @@ class CardPokemon extends Component {
                         </div>
                     )
                 })}
-
-                <div className="mt-4 mr-3 d-flex justify-content-center" >
+                <div className="d-flex flex-row py-4 justify-content-center align-items-center align-center">
                     <Pagination
-
-                        pokemonsPerPage={pokemonsPerPage}
-                        totalPokemon={pokemons.length}
-                        currentPage={currentPage}
-                        paginate={this.paginate}
+                        totalRecords={totalPokemons}
+                        pageLimit={12}
+                        pageNeighbours={1}
+                        onPageChanged={this.onPageChanged}
                     />
                 </div>
             </div>
