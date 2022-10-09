@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Get } from "react-axios";
-
 export default class Card extends Component {
 
+
     render() {
+
         const types =
         {
             "normal": "#00C7BB",
@@ -25,8 +26,9 @@ export default class Card extends Component {
             "steel": "#868686",
             "fairy": "#D1003F"
         }
+        console.log(this.props);
         return (
-            <div id={this.props.id} className="card col-md-3 cardPokemon" style={{ width: "15rem", padding: "0 0 0 0", margin: "10px 2px 2px 2px" }}>
+            <div className="card col-md-3 cardPokemon" style={{ width: "15rem", padding: "0 0 0 0", margin: "10px 2px 2px 2px" }}>
                 <Get url={this.props.url}>
                     {(error, response, isLoading, makeRequest, axios) => {
                         if (error) {
@@ -36,13 +38,15 @@ export default class Card extends Component {
                             return (<div>Loading...</div>)
                         }
                         else if (response !== null) {
-                            console.log(response.data.types[0].type.name);
-                            return (<div id={response.data.id}>
-                                <img className="card-img-top" style={{ background: "white" }} src={response.data.sprites.front_shiny} alt="Pokemon" />
-                                <div className="card-body cardBackground" style={{ background: types[response.data.types[0].type.name] }}>
-                                    <h5 className="card-title text-center cardText">{response.data.name}</h5>
-                                </div>
-                            </div>
+                            return (
+                                <a href={`/pokemon/${response.data.name}`}>
+                                    <div id={response.data.id}>
+                                        <img className="card-img-top" style={{ background: "white" }} src={response.data.sprites.front_shiny ?? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/female/25.png'} alt="Pokemon" />
+                                        <div className="card-body cardBackground" style={{ background: types[response.data.types[0].type.name] }}>
+                                            <h5 className="card-title text-center cardText">{response.data.name}</h5>
+                                        </div>
+                                    </div>
+                                </a>
                             )
                         }
                         return (<div>Default message before request is made.</div>)

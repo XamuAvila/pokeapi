@@ -4,6 +4,7 @@ import axios from 'axios';
 import './gridPokemon.css'
 import Pagination from "../pagination.js";
 import Card from "../card";
+import Logo from "../logo/index.js";
 class GridPokemon extends Component {
 
     constructor(props) {
@@ -38,8 +39,6 @@ class GridPokemon extends Component {
         const {
             allPokemons,
             currentPokemons,
-            currentPage,
-            totalPages
         } = this.state;
 
         const totalPokemons = allPokemons.length;
@@ -47,19 +46,22 @@ class GridPokemon extends Component {
         if (totalPokemons === 0) return null;
 
         return (
-            <div className="row backgroundGeneral d-flex justify-content-center">
-                {currentPokemons.map(pokemon => {
-                    return (
-                        <Card id={pokemon.id} url={pokemon.url} />
-                    )
-                })}
-                <div className="d-flex flex-row py-4 justify-content-center align-items-center align-center">
-                    <Pagination
-                        totalRecords={totalPokemons}
-                        pageLimit={20}
-                        pageNeighbours={1}
-                        onPageChanged={this.onPageChanged}
-                    />
+            <div>
+                <Logo />
+                <div className="row d-flex justify-content-center">
+                    {currentPokemons.map(pokemon => {
+                        return (
+                            <Card id={pokemon.id} url={pokemon.url} />
+                        )
+                    })}
+                    <div className="d-flex flex-row py-4 justify-content-center align-items-center align-center">
+                        <Pagination
+                            totalRecords={totalPokemons}
+                            pageLimit={20}
+                            pageNeighbours={1}
+                            onPageChanged={this.onPageChanged}
+                        />
+                    </div>
                 </div>
             </div>
         );

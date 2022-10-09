@@ -9,7 +9,6 @@ import {
 import Details from './components/details/details.jsx';
 import GridPokemon from './components/grid/index.js';
 import './index.css';
-
 const router = createBrowserRouter([
   {
     path: "/",
